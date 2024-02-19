@@ -5,10 +5,8 @@ const authRoutes = require("./routes/auth");
 const messageRoutes = require("./routes/messages");
 const app = express();
 const socket = require("socket.io");
-const path = require("path");
 require("dotenv").config();
 
-const __dirname = path.resolve();
 
 app.use(cors());
 app.use(express.json());
@@ -27,10 +25,7 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-app.use(express.static(path.join(__dirname, '/client/dist')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
+
 
 const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)
